@@ -14,35 +14,32 @@ for more information https://github.com/oracle/docker-images/blob/main/OracleDat
 
 - Create user
   #+BEGIN_SRC sql
-    create user cm_rtm identified by cm_rtm_pwd ;
-    grant connect to cm_rtm;
-    grant select on cm_rtm.inc_payments_daily_rtm to cm_rtm;
-
-    -- grant select on products to user1;
-    -- grant execute on dbms_flashback to user1;
+        create user cm_rtm identified by cm_rtm_pwd;
+        grant connect to cm_rtm;
+        alter user cm_rtm quota unlimited on USERS;
   #+END_SRC
 
 
 - Setup table with data
    - create a table
      #+begin_src sql
-    create table cm_rtm.inc_payments_daily_rtm
-    (
-      batch_id       number,
-      subs_subs_id   number,
-      p_last_date    varchar2(255),
-      p_cnt          number,
-      p_sum          number,
-      p_min          number,
-      p_max          number
-    );
+           create table cm_rtm.inc_payments_daily_rtm
+           (
+             batch_id       number,
+             subs_subs_id   number,
+             p_last_date    varchar2(255),
+             p_cnt          number,
+             p_sum          number,
+             p_min          number,
+             p_max          number
+           );
      #+end_src
 
   - insert data in its
       sql or lua(!)?
       migrate our mock batches to oracle?
      #+begin_src sql
-       insert
-          into cm_rtm.inc_payments_daily_rtm
-           values (1,1,'2017-09-26', 1, 2, 3, 4);
+           insert
+              into cm_rtm.inc_payments_daily_rtm
+               values (1,1,'2017-09-26', 1, 2, 3, 4);
      #+end_src
