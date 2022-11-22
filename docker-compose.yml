@@ -1,0 +1,22 @@
+version: '3'
+services:
+  oracle:
+    image: registry.gitlab.com/tarantool/enterprise/oracle-docker-images/database:19.3.0-ee
+    networks:
+      serv:
+    environment:
+      - ORACLE_PWD=qwerty
+      # - ORACLE_PDB=ORCLPDB1
+      # - ORACLE_SID=ORCLCDB
+    ports:
+      - 1521:1521
+      - 8080:8080
+      - 5500:5500
+    volumes:
+      - ./startup:/opt/oracle/scripts/startup
+      - oracle-data:/opt/oracle/oradata
+volumes:
+  oracle-data:
+networks:
+  serv:
+    driver: bridge
